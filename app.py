@@ -1,7 +1,12 @@
-from flask import Flask
+from flask import Flask,request, redirect, jsonify, render_template, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def index():
+    return render_template('index.html')
+
+
+@app.route("/Blog")
+def Blog():
+    return render_template("blog.html")

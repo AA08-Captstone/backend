@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Flask app for the backend of the project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AA08-Captstone/backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AA08-Captstone/backend/issues"
+  },
+  "homepage": "https://github.com/AA08-Captstone/backend#readme",
+  "dependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
