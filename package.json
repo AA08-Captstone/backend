@@ -4,7 +4,8 @@
   "description": "Flask app for the backend of the project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-css": "npx tailwindcss -i ./static/src/style.css -o ./static/dist/output.css --watch"
   },
   "repository": {
     "type": "git",
