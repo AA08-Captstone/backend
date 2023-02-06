@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import User
+from models import User, adminUser
 from flask_login import login_user, logout_user, login_required, current_user
 from __init__ import db
 
@@ -46,6 +46,28 @@ def signup(): # define the sign up function
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('auth.login'))
+
+@auth.route('/adminlogin', methods=['GET', 'POST']) # define login page path
+def adminlogin(): # define login page fucntion
+    if request.method=='GET': # if the request is a GET we return the login page
+        return render_template('adminlogin.html')
+    else: # if the request is POST the we check `if the user exist and with te right password
+        username = request.form.get('username')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+        admin_user = adminUser.query.filter_by(username=username).first()
+        # check if the user actually exists
+        # take the user-supplied password, hash it, and compare it to the hashed password in the database
+        if not admin_user:
+            flash('Contact Super Admin for help')
+            return redirect(url_for('main.index'))
+        elif not check_password_hash(admin_user.password, password):
+            flash('Please check your login details and try again.')
+            return redirect(url_for('auth.adminlogin')) # if the user doesn't exist or password is wrong, reload the page
+        # if the above check passes, then we know the user has the right credentials
+        login_user(admin_user, remember=remember)
+        return redirect(url_for('main.profile'))
+
 
 @auth.route('/logout') # define logout path
 @login_required

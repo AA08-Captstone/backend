@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from dotenv import load_dotenv
 import os 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 db = SQLAlchemy()
@@ -25,16 +26,27 @@ def create_app():
 
     login_manager.init_app(app)
 
-    from models import User
+    from models import User,adminUser
     @login_manager.user_loader
     def load_user(user_id):
 
         return User.query.get(int(user_id))
-    
+    '''
+    @login_manager.user_loader
+    def load_admin_user(admin_id):
+
+        return adminUser.query.get(int(admin_id))
+    '''
+    from adminpanel import adminpanel as adminpanel_blueprint
+    app.register_blueprint(adminpanel_blueprint)
 
     from auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
     from main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+
+
     return app
+
