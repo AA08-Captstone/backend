@@ -27,3 +27,4 @@ def profile():
 app = create_app() # we initialize our flask app using the __init__.py function
 if __name__ == '__main__':
     app.run(debug=True) # run the flask app on debug mode
+    
