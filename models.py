@@ -20,6 +20,13 @@ class AdminUser(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
+class Job(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
+    company = db.Column(db.String(100), unique=True)
+    location = db.Column(db.String(100))
+    title = db.Column(db.String(1000))
+    # desc = db.Column(db.nvarchar(max), unique=True)
+
 # class resumeInfo():
     #https://pypi.org/project/resume-parser/
 # class profile():

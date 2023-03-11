@@ -11,8 +11,6 @@ flash,
 from flask_login import login_required, current_user
 from __init__ import create_app, db
 
-
-
 main = Blueprint('main', __name__)
 
 @main.route('/') # home page that return 'index'
@@ -23,6 +21,18 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+@main.route('/userdash')
+def userhome():
+    return render_template('candidatehome.html')
+
+@main.route('/jobsearchpage') # subpage that return 'jobsearch'
+def jobsearch():
+    return render_template('jobsearch.html')
+
+@main.route('/userdatapage') # datapage that return 'result'
+def searchresults():
+    return render_template('result.html')
 
 app = create_app() # we initialize our flask app using the __init__.py function
 if __name__ == '__main__':
