@@ -25,6 +25,7 @@ class Job(UserMixin, db.Model):
     company = db.Column(db.String(100), unique=True)
     location = db.Column(db.String(100))
     title = db.Column(db.String(1000))
+    link = db.Column(db.nvarchar(max), unique=True)
     # desc = db.Column(db.nvarchar(max), unique=True)
 
 # class resumeInfo():

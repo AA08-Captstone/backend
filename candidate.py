@@ -12,6 +12,7 @@ flash,
 from models import User, Job
 import numpy as np
 import pickle
+from utils import new_job_card, get_job_cards
 
 # Displaying the jobs to the candidate
 # Blueprints are app states (Candidate state)
@@ -28,13 +29,17 @@ def job_disp(): # Define job display function
        if not job:
         flash("This job does not exist in the database")
       # Do something here to display the job card
-       return redirect(url_for('main.userhome'))
+       return redirect(url_for('main.userdash'))
 
 @candidate.route('/carddisp', methods=['GET', 'POST'])
 def card_display():
   # Use the loaded pickle model to get the top predicted class, 
   # then display the job to the user
-  return redirect(url_for('main.userhome'))
+  if request.method == 'GET':
+    top_predicted = model_predict(model)
+  if request.method == 'POST':
+    job_cards = get_job_cards(top_predicted)
+  return render_template('employerhome.html', job_cards = job_cards[:5])
 
 @candidate.route('/jobsearch', methods=['GET', 'POST'])
 def job_search():
@@ -60,15 +65,14 @@ def job_search():
 @candidate.route('/prediction')
 def model_predict(to_predict_list):
   to_predict = np.array(to_predict_list).reshape(1, 12)
-  loaded_model = pickle.load(open(filename, 'rb'))
-  res = loaded_model.predict(to_predict)
+  res = model.predict(to_predict)
   return res[0]
 
 @candidate.route('/result', methods=['POST'])
 def results():
   if request.method == 'POST':
     to_predict_list = request.form.to_dict()
-    to_predict_list = list(to.predict_list.values())
+    to_predict_list = list(to_predict_list.values())
     to_predict_list = list(map(int, to_predict_list))
     res = model_predict(to_predict_list)
     if int(res) == 1:
