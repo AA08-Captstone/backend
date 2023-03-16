@@ -12,3 +12,17 @@ from flask_login import login_required, current_user
 
 
 candidate = Blueprint('candidate', __name__)
+
+@candidate.route('/candidateProfile') # profile page that return 'profile'
+@login_required
+def profile():
+    if not current_user.profile_setup:
+        return redirect(url_for('profile_setup'))
+    else:
+        return render_template('profile.html', name=current_user.name)
+
+
+@candidate.route('/profile_setup') # profile page that return 'profile'
+@login_required
+def profile():
+        return render_template('profileSetup.html', name=current_user.name)

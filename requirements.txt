@@ -4,3 +4,6 @@ flask-login
 werkzeug
 pandas
 python-dotenv
+Flask-Assets==2.0
+pytailwindcss==0.1.4
+resume-parser

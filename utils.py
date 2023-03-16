@@ -10,6 +10,8 @@ def create_super_admin():
     admin_check = AdminUser.query.filter_by(username=username).first() 
     if admin_check == None:
         password = os.getenv("ADMIN_PASSWORD")
-        super_admin = AdminUser(username=username, name="Super Admin", password=generate_password_hash(password, method='sha256'))
+        super_admin = AdminUser(username=username,
+                    name="Super Admin", 
+                    password=generate_password_hash(password, method='sha256'))
         db.session.add(super_admin)
         db.session.commit()

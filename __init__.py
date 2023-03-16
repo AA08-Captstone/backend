@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from dotenv import load_dotenv
 import os 
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_assets import Bundle, Environment
 
 db = SQLAlchemy()
 
@@ -51,9 +51,19 @@ def create_app():
 
     login_manager.blueprint_login_views = {
     'adminpanel': 'auth.admin_login',
-    'main': 'auth.user_login',
-    'Employer': 'auth.emp_login',
+    'candidate': 'auth.user_login',
+    'employer': 'auth.emp_login',
     }
+
+    assets = Environment(app)
+    css = Bundle("src/main.css", output="dist/main.css")
+    js = Bundle("src/*.js", output="dist/main.js") # new
+
+    assets.register("css", css)
+    assets.register("js", js) # new
+    css.build()
+    js.build() # new
+
 
     return app
 
