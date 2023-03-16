@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul class="flex items-center gap-2 text-lg">
+    <li class="rounded-lg px-3 py-2 hover:opacity-40">
+      <a class="rounded-lg px-3 py-2" href="/"> Home </a>
+    </li>
+    <li class="rounded-lg px-3 py-2 hover:opacity-40">
+      <a class="rounded-lg px-3 py-2" href=""> Login </a>
+    </li>
+    <li class="rounded-lg px-3 py-2 hover:opacity-40">
+      <a class="rounded-lg px-3 py-2" href=""> Sign Up </a>
+    </li>
+  </ul>
+<div class="hero-head">
+    <nav class="navbar">
+        <div class="container">
+
+            <div id="navbarMenuHeroA" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="{{ url_for('main.index') }}" class="navbar-item">
+                        Home
+                    </a>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                        Profile
+                    </a>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.user_login') }}" class="navbar-item">
+                        Login
+                    </a>
+                    <a href="{{ url_for('auth.user_signup') }}" class="navbar-item">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<h1 class="title">
+    Welcome, {{name}}!
+</h1>
+{% endblock %}

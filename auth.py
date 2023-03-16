@@ -11,7 +11,7 @@ auth = Blueprint('auth', __name__) # create a Blueprint object that we name 'aut
 @auth.route('/login', methods=['GET', 'POST']) # define login page path
 def user_login(): # define login page fucntion
     if request.method=='GET': # if the request is a GET we return the login page
-        return render_template('login.html')
+        return render_template('userlogin.html')
     else: # if the request is POST the we check if the user exist and with te right password
         email = request.form.get('email')
         password = request.form.get('password')
@@ -27,7 +27,7 @@ def user_login(): # define login page fucntion
             return redirect(url_for('auth.user_login')) # if the user doesn't exist or password is wrong, reload the page
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('candidate.profile'))
 
 @auth.route('/signup', methods=['GET', 'POST'])# we define the sign up path
 def user_signup(): # define the sign up function
@@ -46,7 +46,7 @@ def user_signup(): # define the sign up function
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.user_login'))
 
 @auth.route('/adminlogin', methods=['GET', 'POST']) # define login page path
 def admin_login(): # define login page fucntion
