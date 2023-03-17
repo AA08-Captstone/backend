@@ -30,14 +30,6 @@ def job_disp(): # Define job display function
         flash("This job does not exist in the database")
        return redirect(url_for('main.empdash'))
 
-@employer.route('/carddisp', methods=['GET', 'POST'])
-def card_display():
-  # Use the loaded pickle model to get the top predicted class, 
-  # then display the job to the usertop_predicted = model_predict(model)
-  top_predicted = model_predict(model)
-  job_cards = get_job_cards(top_predicted)
-  return render_template('employerhome.html', job_cards = job_cards[:5])
-
 @employer.route('/jobsearch', methods=['GET', 'POST'])
 def job_search():
   if request.method == 'GET':
@@ -60,20 +52,21 @@ def job_search():
     return redirect(url_for('main.empdatapage'))
 
 @employer.route('/prediction')
-def model_predict(to_predict_list):
-  to_predict = np.array(to_predict_list).reshape(1, 12)
-  res = model.predict(to_predict)
-  return res[0]
+def model_predict():
+    data = request.get_json(force="TRUE") # Return set of arguments pulled from a JSON
+    features = [np.array(data['Title'])] # Feature extraction
+    prediction = model.predict(features) # Call the pickle model to make a prediction based on the job title given
+    return str(prediction[:5])
 
 @employer.route('/result', methods=['POST'])
 def results():
   if request.method == 'POST':
-    to_predict_list = request.form.to_dict()
-    to_predict_list = list(to_predict_list.values())
-    to_predict_list = list(map(int, to_predict_list))
-    res = model_predict(to_predict_list)
-    if int(res) == 1:
+    to_predict = request.form.to_dict() #Returns a dictionary from the request form (.csv file)
+    to_predict_list = list(to_predict.values()) # List all values found in the dictionary for the predicted feature
+    to_predict_list = list(map(int, to_predict_list)) # Get user input from the prediction list, and perform label encoding using map
+    res = model_predict(to_predict_list) # Call function to generate results
+    if int(res) == 1: # If predictions are valid...
       prediction = res
     else:
       prediction = 'The entered job title did not produce accurate enough results to be displayed'
-    return render_template('employresult.html', prediction = prediction)
+    return render_template('empresult.html', prediction = prediction)

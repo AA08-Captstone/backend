@@ -24,7 +24,7 @@ def profile():
 
 @main.route('/userdash')
 def userhome():
-    return render_template('candidatehome.html')
+    return render_template('candidatehome.html', name=current_user.name)
 
 @main.route('/jobsearchpage') # subpage that return 'jobsearch'
 def jobsearch():

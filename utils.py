@@ -1,9 +1,24 @@
+from flask import (
+Flask,
+request, 
+redirect,
+jsonify,
+url_for,
+Blueprint,
+render_template, 
+flash,
+)
+
 from dotenv import load_dotenv
 import os 
 from models import AdminUser, Job
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
 import pandas as pd
+import pickle 
+import json
+
+model = pickle.load(open('final_model.pkl', 'rb'))
 
 def create_super_admin():
     # creating super admin
