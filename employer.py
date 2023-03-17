@@ -14,8 +14,7 @@ import numpy as np
 import pickle
 from utils import new_job_card, get_job_cards
 
-# Displaying the jobs to the employer
-# Blueprints are app states (employer state)
+# Module to display the jobs/candidates to the employer
 employer = Blueprint('employer', __name__) # create a Blueprint object that we name 'employer'
 model = pickle.load(open('final_model.pkl', 'rb'))
 @employer.route('/jobcard', methods=['GET', 'POST'])
@@ -50,7 +49,21 @@ def job_search():
       flash("Please enter the relative location!")
     model_predict(jobtitle)
     return redirect(url_for('main.empdatapage'))
+  
+@employer.route('/search', methods=['POST'])
+def search():
+    search_query = request.json['query']
+    # Add the search query to the recent searches list
+    recent_searches.insert(0, search_query)
+    # Only keep the 10 most recent searches
+    recent_searches = recent_searches[:5]
+    # Return the search results
+    return f'Search results for "{search_query}"'
 
+# Define a route to get the most recent searches
+@employer.route('/recent-searches')
+def recent_searches():
+    return jsonify(recent_searches)
 @employer.route('/prediction')
 def model_predict():
     data = request.get_json(force="TRUE") # Return set of arguments pulled from a JSON
