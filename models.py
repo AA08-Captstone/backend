@@ -8,6 +8,11 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     profile_setup = db.Column(db.Boolean, default=False, nullable=False)
+    resume = db.Column(db.String(1000))
+    location = db.Column(db.String(1000))
+    first_name = db.Column(db.String(100))
+    last_name = db.Column(db.String(100))
+    bio = db.Column(db.String(10000))
 
 class Employer(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
@@ -22,6 +27,9 @@ class AdminUser(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
-# class resumeInfo():
-    #https://pypi.org/project/resume-parser/
-# class profile():
+class Job(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
+    company = db.Column(db.String(100), unique=True)
+    location = db.Column(db.String(100))
+    title = db.Column(db.String(1000))
+    link = db.Column(db.String(1000), unique=True)

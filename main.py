@@ -10,14 +10,15 @@ flash,
 )
 from flask_login import login_required, current_user,logout_user
 from __init__ import create_app, db
-
+from utils import upload_jobs
 
 
 main = Blueprint('main', __name__)
 
 @main.route('/') # home page that return 'index'
 def index():
-    logout_user()
+    logout_user() 
+    #upload_jobs()
     return render_template('index.html')
 
 @main.route('/profile') # profile page that return 'profile'
