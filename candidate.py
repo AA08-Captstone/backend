@@ -11,15 +11,25 @@ flash,
 
 from models import User, Job
 import numpy as np
+import pandas as pd
 import pickle
-from utils import new_job_card, get_job_cards
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import StandardScaler
 
 # Module to display the jobs to the candidate
 
 # Global variable definitions
 candidate = Blueprint('candidate', __name__) # create a Blueprint object that we name 'candidate'
 model = pickle.load(open('final_model.pkl', 'rb'))
+df = pd.read_csv("linkedin-jobs.csv")
 recentsearches = []
+
+# Preliminary data pre-processing
+categorical_cols = ['Company', 'Location']
+df[categorical_cols] = df[categorical_cols].astype('category')
+df[categorical_cols] = df[categorical_cols].apply(lambda x: x.cat.codes)
+df = df.drop(['index', 'Apply'], axis=1)
+scaler = StandardScaler()
 
 @candidate.route('/jobcard', methods=['GET', 'POST'])
 def job_disp(): # Define job display function
@@ -70,22 +80,35 @@ def search():
 def recent_searches():
     return jsonify(recent_searches)
 
-@candidate.route('/prediction')
+@candidate.route('/recommend-jobs', methods=['POST'])
 def model_predict():
     data = request.get_json(force="TRUE") # Return set of arguments pulled from a JSON
-    features = [np.array(data['Title'])] # Feature extraction
-    prediction = model.predict(features) # Call the pickle model to make a prediction based on the job title given
-    return str(prediction[:5])
+    # Preprocess the input data
+    input_data = pd.DataFrame(data, index=[0])
+    input_data[categorical_cols] = input_data[categorical_cols].astype('category')
+    input_data[categorical_cols] = input_data[categorical_cols].apply(lambda x: x.cat.codes)
+    input_data = input_data.drop(['index', 'Apply'], axis=1)
+    
+    # Scale the input data
+    input_data = scaler.transform(input_data)
+    
+    # Use the trained model to make predictions on the preprocessed input data
+    similarities = cosine_similarity(input_data, scaler.transform(df.drop('Title', axis=1)))
+    top_similarities = np.argsort(similarities)[0][::-1][1:6]
+    recommended_jobs = df.iloc[top_similarities]['Title'].tolist()
+    
+    # Return the predicted job titles to the user
+    return render_template("result.html", recommended_jobs=recommended_jobs)
 
-@candidate.route('/result', methods=['POST'])
-def results():
-  if request.method == 'POST':
-    to_predict = request.form.to_dict() #Returns a dictionary from the request form (.csv file)
-    to_predict_list = list(to_predict.values()) # List all values found in the dictionary for the predicted feature
-    to_predict_list = list(map(int, to_predict_list)) # Get user input from the prediction list, and perform label encoding using map
-    res = model_predict(to_predict_list) # Call function to generate results
-    if int(res) == 1: # If predictions are valid...
-      prediction = res
-    else:
-      prediction = 'The entered job title did not produce accurate enough results to be displayed'
-    return render_template('result.html', prediction = prediction)
+# @candidate.route('/result', methods=['POST'])
+# def results():
+#   if request.method == 'POST':
+#     to_predict = request.form.to_dict() #Returns a dictionary from the request form (.csv file)
+#     to_predict_list = list(to_predict.values()) # List all values found in the dictionary for the predicted feature
+#     to_predict_list = list(map(int, to_predict_list)) # Get user input from the prediction list, and perform label encoding using map
+#     res = model_predict(to_predict_list) # Call function to generate results
+#     if int(res) == 1: # If predictions are valid...
+#       prediction = res
+#     else:
+#       prediction = 'The entered job title did not produce accurate enough results to be displayed'
+#     return render_template('result.html', prediction = prediction)

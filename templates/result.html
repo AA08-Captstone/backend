@@ -65,7 +65,7 @@
                 <h3>Predicted Jobs by Company</h3>
                 <img src="../imgs/company_data.png"></img>
               </div>
-              
+            
               <script>
               function openTab(tabName) {
                 // Hide all tab content
@@ -80,8 +80,17 @@
               </script>
               
             </div>
+
+            <div>
+              <h1>Recommended Jobs</h1>
+            <ul>
+              {% for job in recommended_jobs %}
+                <li>{{ job }}</li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
-        </div>
-      </main>
+      </div>
+      </div>
+    </main>
 {% endblock %}

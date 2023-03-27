@@ -110,5 +110,14 @@
           </div>
         </div>
         </div>
+
+        <div>
+          <h1>Recommended Jobs</h1>
+        <ul>
+          {% for job in recommended_jobs %}
+            <li>{{ job }}</li>
+          {% endfor %}
+        </ul>
+      </div>
       </main>
 
