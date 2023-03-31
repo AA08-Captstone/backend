@@ -18,7 +18,7 @@ main = Blueprint('main', __name__)
 @main.route('/') # home page that return 'index'
 def index():
     logout_user()
-    return render_template('index.html')
+    return render_template('faq.html')
 
 @main.route('/profile') # profile page that return 'profile'
 @login_required

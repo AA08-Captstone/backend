@@ -48,6 +48,8 @@ def user_signup(): # define the sign up function
         db.session.commit()
         return redirect(url_for('auth.user_login'))
 
+        
+
 @auth.route('/adminlogin', methods=['GET', 'POST']) # define login page path
 def admin_login(): # define login page fucntion
     create_super_admin()
