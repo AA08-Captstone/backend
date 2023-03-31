@@ -16,12 +16,18 @@ import pickle
 from utils import new_job_card, get_job_cards
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import StandardScaler
+import folium
+from geopy.geocoders import Nominatim
 
 # Module to display the jobs/candidates to the employer
 employer = Blueprint('employer', __name__) # create a Blueprint object that we name 'employer'
 model = pickle.load(open('final_model.pkl', 'rb'))
 df = pd.read_csv("linkedin-jobs.csv")
 recentsearches = []
+map = folium.Map(location=[43.6532, -79.3832],  zoom_start=8)
+geolocator = Nominatim(user_agent='''Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) 
+                        AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 
+                        Mobile/9B179 Safari/7534.48.3")''')
 
 # Preliminary data pre-processing
 categorical_cols = ['Company', 'Location']
@@ -103,3 +109,54 @@ def model_predict():
     
     # Return the predicted job titles to the user
     return render_template("empresult.html", title=title, recommended_jobs=recommended_jobs)
+  
+@employer.route('/jobmap', methods=["POST"])
+def show_jobmap():
+  data = request.get_json(force="TRUE")
+  grouped_data = data.groupby('city')
+  for i in range(0,len(data)):
+   html = f"""
+        <h1>{data.iloc[i]['city']}</h1>
+        <p>Available Jobs:</p>
+        <ul>
+    """
+
+   grouped_data = data.groupby('city')
+   for city, group in grouped_data:
+        if city == data.iloc[i]['city']:
+            unique_jobs = group['Title'].unique()
+            job_count = len(unique_jobs) # count the number of unique jobs
+            html += f"<h2>{job_count} Jobs</h2>" # add job count as header to HTML
+            for job in unique_jobs:
+                html += f"<li>{job}</li>"
+   html += """
+        </ul>
+        <p><a href="https://www.python-graph-gallery.com">More Info</a></p>
+    """
+   iframe = folium.IFrame(html=html, width=200, height=200)
+   popup = folium.Popup(iframe, max_width=2650)
+   location = geolocator.geocode(data.iloc[i]['city'])
+   lat, lon = location.latitude, location.longitude
+
+   folium.Marker(location=[lat, lon],popup=popup,).add_to(map)
+
+  # Display the map
+  return render_template("result.html", map=map)
+  
+@employer.route('/jobloc', methods=["POST"])
+def get_location(cit):
+  location = geolocator.geocode(cit)
+  if location is not None:
+    return location
+  
+  df["loc"] = df["city"].apply(get_location)
+  df = df.dropna(subset=['loc'])
+  grouped_data = df.groupby('city')
+  
+  for city, group in grouped_data:
+      print("Jobs in " + city + ":")
+      unique_jobs = group['Title'].unique()
+      for job in unique_jobs:
+          print("- " + job)
+      
+      print("")

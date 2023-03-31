@@ -67,6 +67,16 @@
                 <img src="../imgs/location_data.png"></img>
               </div>
               
+              <div id="tab3" class="tabcontent hidden">
+                <h3>Jobs Mapped in Canada</h3>
+                <script>
+                  fetch('/jobmap')
+                    .then(response => response.json())
+                    .then(map => document.getElementById("map"))
+                    .catch(error => console.error(error));
+                </script>
+              </div>
+              
               <script>
               function openTab(tabName) {
                 // Hide all tab content

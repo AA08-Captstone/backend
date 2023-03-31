@@ -34,7 +34,7 @@
       <ul id="searches"></ul>
       <script>
         // Make a request to the backend to get the recent searches
-        fetch('/recent_searches')
+        fetch('/recent-searches')
           .then(response => response.json())
           .then(searches => {
             // Loop through the searches and add them to the list
@@ -54,6 +54,7 @@
               <div class="flex flex-row">
                 <button class="w-1/2 py-2 px-4 bg-gray-300 font-semibold" onclick="openTab('tab1')">Tab 1</button>
                 <button class="w-1/2 py-2 px-4 font-semibold" onclick="openTab('tab2')">Tab 2</button>
+                <button class="w-1/2 py-2 px-4 font-semibold" onclick="openTab('tab2')">Tab 3</button>
               </div>
               
               <div id="tab1" class="tabcontent">
@@ -64,6 +65,16 @@
               <div id="tab2" class="tabcontent hidden">
                 <h3>Predicted Jobs by Company</h3>
                 <img src="../imgs/company_data.png"></img>
+              </div>
+
+              <div id="tab3" class="tabcontent hidden">
+                <h3>Jobs Mapped in Canada</h3>
+                <script>
+                  fetch('/jobmap')
+                    .then(response => response.json())
+                    .then(map => document.getElementById("map"))
+                    .catch(error => console.error(error));
+                </script>
               </div>
             
               <script>
