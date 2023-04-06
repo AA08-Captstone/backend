@@ -7,15 +7,15 @@
     <link rel="icon" href="/favicon.ico" />
       <main className={styles.main}>
         <div class="flex">
-          <div class="lg:w-5/12 bg-sky-500 px-20">
-            <p class="flex justify-center text-white font-bold pt-4 text-4xl">DATA PAGE</p>
+          <div class="lg:w-5/12 sm:w-3/12 bg-sky-500 px-20">
+            <p class="flex justify-center text-white font-bold pt-4 text-4xl sm:text-xl">DATA PAGE</p>
             <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-2">
               <div>
                 <label for="jobsearch" class="sr-only">Search Jobs</label>
                 <div class="flex relative justify-center">
                   <input
                     type="text"
-                    class=" w-96 rounded-lg border-gray-200 p-2 pr-12 text-sm shadow-sm"
+                    class=" w-96 sm:w-48 rounded-lg border-gray-200 p-2 pr-12 text-sm shadow-sm"
                     placeholder="Search jobs"
                   />
                 </div>
@@ -24,7 +24,7 @@
         <div class="flex flex-col items-center">
           <button
             type="submit"
-            class="w-64 rounded-lg place-content-end bg-blue-800 px-5 py-2 mb-2 text-sm font-medium text-white">
+            class="w-64 sm:w-32 rounded-lg place-content-end bg-blue-800 px-5 py-2 mb-2 text-sm font-medium text-white">
             Submit
           </button>
         </div>
@@ -49,12 +49,12 @@
 
         </div>
           <div class="lg:w-7/12 bg-white">
-            <p class="font-bold pt-4 text-4xl px-40 text-center">SEARCH RESULTS</p>
+            <p class="font-bold sm:text-xl pt-4 text-4xl px-40 text-center">SEARCH RESULTS</p>
             <div class="w-full">
               <div class="flex flex-row">
                 <button class="w-1/2 py-2 px-4 bg-gray-300 font-semibold" onclick="openTab('tab1')">Tab 1</button>
                 <button class="w-1/2 py-2 px-4 font-semibold" onclick="openTab('tab2')">Tab 2</button>
-                <button class="w-1/2 py-2 px-4 font-semibold" onclick="openTab('tab2')">Tab 3</button>
+                <button class="w-1/2 py-2 px-4 font-semibold" onclick="openTab('tab3')">Tab 3</button>
               </div>
               
               <div id="tab1" class="tabcontent">

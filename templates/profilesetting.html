@@ -4,26 +4,26 @@
 <div class="my-16 min-h-screen bg-sky-500 pt-2">
   <div class="container mx-auto">
     <div class="inputs mx-auto w-full max-w-2xl bg-white p-6">
-      <h2 class="text-center text-4xl font-medium text-gray-900">Profile Settings</h2>
+      <h2 class="text-center text-4xl md:text-2xl sm:text-xl font-medium text-gray-900">Profile Settings</h2>
       <form class="mt-6 border-t border-gray-400 pt-4">
         <div class="-mx-3 mb-6 flex flex-wrap">
           <div class="/ mb-6 w-full px-3 md:w-full">
-            <h2 class="text-2l mb-4 text-center font-bold text-gray-900">Change Profile Image</h2>
-            <div class="relative m-auto mb-6 h-36 w-36 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
+            <h2 class="text-2l md:text-l sm:text-m mb-4 text-center font-bold text-gray-900">Change Profile Image</h2>
+            <div class="relative m-auto mb-6 h-36 w-36 sm:w-24 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
               <svg class="h-44 w-36 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
             </div>
-            <input class="w-qauto m-auto block h-auto cursor-pointer rounded-lg border border-gray-900 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" id="file_input" type="file" />
-            <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Email Address</label>
-            <input class="block w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" id="grid-text-1" type="text" placeholder="Enter email" required />
+            <input class="w-qauto sm:w-24 m-auto block h-auto sm:h-12 cursor-pointer rounded-lg border border-gray-900 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" id="file_input" type="file" />
+            <label class="text-2l sm:text-m mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Email Address</label>
+            <input class="block w-full sm:w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" id="grid-text-1" type="text" placeholder="Enter email" required />
           </div>
           <div class="mb-6 w-full px-3 md:w-full">
-            <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Password</label>
+            <label class="text-2l md:text-m mb-2 block font-bold tracking-wide text-gray-700">Password</label>
             <button class="appearance-none rounded-md border border-gray-400 bg-gray-200 px-2 py-1 text-gray-900 shadow-sm">Enter new password</button>
           </div>
-          <div class="mb-6 w-full px-3 md:w-full">
-            <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Enter your country</label>
-            <div class="relative inline-block w-full flex-shrink">
-              <select class="block w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 text-gray-600 shadow-inner">
+          <div class="mb-6 w-full md:w-full px-3 md:w-full">
+            <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">Enter your country</label>
+            <div class="relative inline-block w-full md:w-full flex-shrink">
+              <select class="block w-full md:w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 text-gray-600 shadow-inner">
                 <option>choose ...</option>
                 <option>Canada</option>
                 <option>USA</option>
@@ -36,10 +36,10 @@
               </div>
             </div>
           </div>
-          <div class="mb-6 w-full px-3 md:w-full">
-            <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Preferred Language</label>
-            <div class="relative inline-block w-full flex-shrink">
-              <select class="block w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 text-gray-600 shadow-inner">
+          <div class="mb-6 w-full md:w-full px-3 md:w-full">
+            <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">Preferred Language</label>
+            <div class="relative inline-block w-full md:w-full flex-shrink">
+              <select class="block w-full md:w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 text-gray-600 shadow-inner">
                 <option>choose ...</option>
                 <option>English</option>
                 <option>France</option>
@@ -50,25 +50,25 @@
               </div>
             </div>
           </div>
-          <div class="personal w-full border-t border-gray-400 pt-4">
-            <h2 class="mb-5 text-center text-4xl font-medium text-gray-900">Personal info:</h2>
+          <div class="personal w-full md:w-full border-t border-gray-400 pt-4">
+            <h2 class="mb-5 text-center text-4xl md:text-2xl sm:text-xl font-medium text-gray-900">Personal info:</h2>
             <div class="mt-4 flex items-center justify-between">
-              <div class="mb-6 w-full px-3 md:w-1/2">
-                <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">First Name</label>
-                <input class="block w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
+              <div class="mb-6 w-full md:w-full px-3 md:w-1/2">
+                <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">First Name</label>
+                <input class="block w-full md:w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
               </div>
               <div class="mb-6 w-full px-3 md:w-1/2">
-                <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Last Name</label>
-                <input class="block w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
+                <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">Last Name</label>
+                <input class="block w-full md:w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
               </div>
             </div>
             <div class="mb-6 w-full px-3 md:w-full">
-              <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Username</label>
-              <input class="block w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
+              <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">Username</label>
+              <input class="block w-full md:w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" type="text" required />
             </div>
             <div class="mb-6 w-full px-3 md:w-full">
-              <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700">Bio</label>
-              <textarea class="h-20 w-full resize-none rounded-md border border-gray-400 bg-gray-100 py-2 px-3 font-medium leading-normal placeholder-gray-700 shadow-inner focus:bg-white focus:outline-none" required></textarea>
+              <label class="text-2l md:text-l sm:text-m mb-2 block font-bold tracking-wide text-gray-700">Bio</label>
+              <textarea class="h-20 w-full md:w-full resize-none rounded-md border border-gray-400 bg-gray-100 py-2 px-3 font-medium leading-normal placeholder-gray-700 shadow-inner focus:bg-white focus:outline-none" required></textarea>
             </div>
             <div class="flex justify-end">
               <button class="mr-3 appearance-none rounded-md border border-gray-400 bg-gray-200 px-2 py-1 text-gray-900 shadow-sm" type="submit">Save Changes</button>
