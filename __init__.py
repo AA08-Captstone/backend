@@ -6,16 +6,18 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_assets import Bundle, Environment
 
+
 db = SQLAlchemy()
+BASEDIR = os.getcwd()
+UPLOAD_FOLDER = f'{BASEDIR}/uploads/resumes'
+
 
 def create_app():
     app = Flask(__name__) 
     app.config['SECRET_KEY'] = os.getenv("SQLALCHEMY_SECRET_KEY")
-    basedir = os.getcwd()
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{basedir}/{os.getenv("SQLALCHEMY_DATABASE_URI")}'
-
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{BASEDIR}/{os.getenv("SQLALCHEMY_DATABASE_URI")}'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-
     db.init_app(app)
 
     with app.app_context():
@@ -54,6 +56,8 @@ def create_app():
     'candidate': 'auth.user_login',
     'employer': 'auth.emp_login',
     }
+
+
 
     assets = Environment(app)
     css = Bundle("src/main.css", output="dist/main.css")

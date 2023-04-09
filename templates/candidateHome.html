@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Homepage (User) -->
+{% include 'candidateHeader.html' %}
+<div class="my-16 min-h-screen bg-sky-500 pt-2">
+  <!-- Navigation Bar -->
+  
+  <!-- Headings -->
+  <div class="container mt-5">
+  <div class="min-h-screen">
+    <div class="container mx-auto">
+      <div class="inputs mx-auto w-full max-w-2xl bg-white p-6">
+         <h2 class="text-center text-4xl font-extrabold font-mono  text-cyan-900 tracking-widest">MAIN DASHBOARD</h2>
+          <h3 class = "p-4 text-center text-2xl font-extrabold font-mono  text-cyan-900 tracking-wider"> Welcome Back! </h3>
+  
+        <form class="mt-4 border-t border-black pt-4">
+  
+  <!-- Job Search Bar -->
+              <label class="py-2 text-center text-xl mb-2 block font-bold tracking-wide text-sky-600" for="grid-text-1">Search For Jobs</label>
+              <input class="block h-12 w-full appearance-none rounded-full border border-gray-300 bg-sky-100 hover:bg-sky-50 py-3 px-4 leading-tight text-black shadow-inner focus:border-gray-500 focus:outline-none" id="grid-text-1" type="text" placeholder="Enter job name, company name, location, etc." required />
+  
+              <div class="pt-24 mb-16 text-center text-2xl font-medium underline text-gray-900 tracking-wide">JOB RECOMMENDATIONS FOR YOU
+                <div class = "row" style="background-color: lightgray;">
+                  <div class = "col-sm-4">
+                          {% for job_card in job_cards %}
+                              <div class="card" style="width:200px;float:left;">
+                                  <div class="card-body" style="background-color:lightcyan;">
+                                      <img class="items-center w-auto h-auto mb-2" src="../imgs/recommended_jobs.png"></img>
+                                      <h5 class="card-title">{{job_card.title}}</h5>
+                                      <p class="card-company">{{job_card.company}}</p>
+                                      <p class="card-location">{{job_card.location}}</p>
+                                      <p>{{job_card.apply}}</p>
+                                      <a href="{{ job_card.link }}" class="btn btn-primary">Apply here</a>
+                                  </div>
+                              </div>
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+     </div>
+{% endblock %}
