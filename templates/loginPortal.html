@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="h-screen bg-blue-50">
+  <div
+    class="mx-auto max-w-screen-xl px-4 py-32"
+  >
+  <a href="{{ url_for('main.index') }}"class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 512 512"><title>ionicons-v5-a</title><polyline points="249.38 336 170 256 249.38 176" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/><line x1="181.03" y1="256" x2="342" y2="256" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/><path d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"/></svg>
+    Back
+  </a>
+  
+    <div class="mx-auto max-w-xl text-center">
+      <h1 class="text-3xl font-extrabold sm:text-5xl text-blue-600">
+        Smart Hire
+      </h1>
+
+      <p class="mt-4 sm:text-xl sm:leading-relaxed">
+        A powerful AI based Job recommender!
+      </p>
+    </div>
+
+    <h1 class="pt-8 text-center text-2xl font-bold">Get started</h1>
+  <div class="mt-8 flex flex-wrap justify-center gap-4">
+     <a class="block w-full rounded border border-blue-600 bg-blue-600 px-20 py-5 text-xl font-medium text-white hover:text-white hover:opacity-80 focus:outline-none focus:ring active:text-opacity-75 sm:w-auto" href="{{ links[0] }}">{{ text[0] }}</a>
+    <a class="block w-full rounded border border-blue-600 bg-blue-600 px-20 py-5 text-xl font-medium text-white hover:text-white hover:opacity-80 focus:outline-none focus:ring active:text-opacity-75 sm:w-auto" href="{{ links[1] }}">{{ text[1] }}</a>
+  </div>
+</div>
+</section>
+{% endblock %}
+

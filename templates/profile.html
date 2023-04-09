@@ -1,20 +1,6 @@
-{% extends "base.html" %} {% block content %}
-<section class="bg-slate-100">
-  <ul class="flex items-center gap-2 text-lg">
-    <li class="rounded-lg px-3 py-2 hover:opacity-40">
-      <a class="rounded-lg px-3 py-2" href="{{url_for('candidate.candidate_home')}}"> Home </a>
-    </li>
-    <li class="rounded-lg px-3 py-2 hover:opacity-40">
-      <a class="rounded-lg px-3 py-2" href="{{url_for('candidate.profile_setup')}}"> Account Settings </a>
-    </li>
-    <li class="rounded-lg px-3 py-2 hover:opacity-40">
-      <a class="rounded-lg px-3 py-2" href="{{url_for('candidate.profile_setup')}}"> Job Search </a>
-    </li>
-    <li class="rounded-lg px-3 py-2 hover:opacity-40">
-      <a class="rounded-lg px-3 py-2" href="/"> logout </a>
-    </li>
-  </ul>
-</section>
+{% extends "base.html" %} 
+{% block content %}
+{% include 'candidateHeader.html' %}
 <div class="p-16">
   <div class="mt-24 bg-white p-8 shadow">
     <div class="grid grid-cols-1 md:grid-cols-3">
