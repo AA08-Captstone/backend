@@ -13,22 +13,26 @@ from models import User, Job
 import numpy as np
 import pandas as pd
 import pickle
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import StandardScaler
 import folium
 from geopy.geocoders import Nominatim
 
 # Module to display the jobs to the candidate
-
 # Global variable definitions
 candidate = Blueprint('candidate', __name__) # create a Blueprint object that we name 'candidate'
 model = pickle.load(open('final_model.pkl', 'rb'))
-df = pd.read_csv("linkedin-jobs.csv")
+df = pd.read_csv("run1.csv")
 map = folium.Map(location=[43.6532, -79.3832],  zoom_start=8)
 geolocator = Nominatim(user_agent='''Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) 
                         AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 
                         Mobile/9B179 Safari/7534.48.3")''')
 recentsearches = []
+vectorizer = CountVectorizer()
+
+# Fit the job skills data into a skills matrix
+job_skills_matrix = vectorizer.fit_transform(df['skills'])
 
 # Preliminary data pre-processing
 categorical_cols = ['Company', 'Location']
@@ -88,24 +92,31 @@ def recent_searches():
 
 @candidate.route('/recommend-jobs', methods=['POST'])
 def model_predict():
-  data = request.get_json(force="TRUE") # Return set of arguments pulled from a JSON
-  # Preprocess the input data
-  input_data = pd.DataFrame(data, index=[0])
-  input_data[categorical_cols] = input_data[categorical_cols].astype('category')
-  input_data[categorical_cols] = input_data[categorical_cols].apply(lambda x: x.cat.codes)
-  input_data = input_data.drop(['index', 'Apply'], axis=1)
+  # Return set of arguments pulled from a JSON
+  resume_skills = request.form['skills']
+  # Combine resume skills with job skills for similarity comparison
+  all_skills = ' '.join([resume_skills, ' '.join(df['skills'])])
   
-  # Scale the input data
-  input_data = scaler.transform(input_data)
+  # Transform resume skills into a resume skills vector
+  resume_skills_vector = vectorizer.transform([all_skills])
   
-  # Use the trained model to make predictions on the preprocessed input data
-  similarities = cosine_similarity(input_data, scaler.transform(df.drop('Title', axis=1)))
-  top_similarities = np.argsort(similarities)[0][::-1][1:6]
-  recommended_jobs = df.iloc[top_similarities]['Title'].tolist()
+  # Compute cosine similarity between resume skills vector and job skills matrix
+  similarity_scores = cosine_similarity(resume_skills_vector, job_skills_matrix)
   
-  # Return the predicted job titles to the user
-  return render_template("result.html", recommended_jobs=recommended_jobs)
-
+  # Create a DataFrame to store job title and similarity score
+  top_jobs = pd.DataFrame({'job_title': df['Job'], 'similarity_score': similarity_scores[0]})
+  
+  # Sort jobs by similarity score in descending order
+  top_jobs = top_jobs.sort_values(by='similarity_score', ascending=False)
+  
+  # Select top 5 recommended jobs
+  top_jobs = top_jobs.head(5)
+  
+  # Convert the DataFrame to a list of dictionaries
+  recommended_jobs = top_jobs.to_dict(orient='records')
+  
+  # Pass recommended jobs and resume skills to HTML template for rendering
+  return render_template('results.html', recommended_jobs=recommended_jobs, skills = resume_skills)
 @candidate.route('/jobmap', methods=["POST"])
 def show_jobmap():
   data = request.get_json(force="TRUE")
