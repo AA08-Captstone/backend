@@ -15,13 +15,12 @@ class Employer(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     profile_setup = db.Column(db.Boolean, default=False, nullable=False)
+    industry = db.Column(db.String(100))
+    country = db.Column(db.String(100))
+    language = db.Column(db.String(100))
 
 class AdminUser(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
-
-# class resumeInfo():
-    #https://pypi.org/project/resume-parser/
-# class profile():
