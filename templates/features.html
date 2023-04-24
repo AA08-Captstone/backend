@@ -8,13 +8,13 @@
 
   
   <!-- Features Page -->
-  <section id="features">
+  <section id="features" class="pb-5">
     <!-- Flex Container -->
     <div class="container mx-auto mt-10 flex flex-col space-y-12 px-4 md:flex-row md:space-y-0">
       <!-- What's Different -->
       <div class="flex flex-col space-y-12 md:w-1/2">
-        <h2 class="md-text-left max-w-md text-center text-4xl font-bold">What's Different About SmartHire?</h2>
-        <p class="text-darkGrayishBlue max-w-sm text-center md:text-left">SmartHire is different from traditional job search platforms in several ways. Firstly, it utilizes advanced artificial intelligence algorithms to analyze and match a user's skills and experience with relevant job postings. This allows for a more personalized and efficient job search experience, as users are presented with only the most relevant job opportunities. Additionally, SmartHire goes beyond just matching job titles and qualifications. It takes into account a user's personal preferences, such as work-life balance, company culture, and location, to ensure that job recommendations align with their overall career goals and aspirations. Overall, SmartHire provides a comprehensive and tailored approach to job searching and career development, making it the ideal platform for job seekers who want to find their dream job faster and more efficiently.</p>
+        <h2 class="md-text-left max-w-md text-left text-4xl font-bold">What's Different About SmartHire?</h2>
+        <p class="text-darkGrayishBlue max-w-sm text-justify md:text-justify">SmartHire is different from traditional job search platforms in several ways. Firstly, it utilizes advanced artificial intelligence algorithms to analyze and match a user's skills and experience with relevant job postings. This allows for a more personalized and efficient job search experience, as users are presented with only the most relevant job opportunities. Additionally, SmartHire goes beyond just matching job titles and qualifications. It takes into account a user's personal preferences, such as work-life balance, company culture, and location, to ensure that job recommendations align with their overall career goals and aspirations. Overall, SmartHire provides a comprehensive and tailored approach to job searching and career development, making it the ideal platform for job seekers who want to find their dream job faster and more efficiently.</p>
       </div>
   
       <!-- Numbered List -->
@@ -41,12 +41,11 @@
           <div class="rounded-l-full bg-blue-200 md:bg-transparent">
             <div class="flex items-center space-x-2">
               <div class="rounded-full bg-blue-500 px-4 py-2 text-white md:py-1">2</div>
-              <h3 class="text-base font-bold md:mb-4 md:hidden">Employer Insights</h3>
+              <h3 class="text-base font-bold md:mb-4">Employer Insights</h3>
             </div>
           </div>
   
           <div>
-            <h3 class="mb-4 hidden text-lg font-bold md:block">Employer Insights</h3>
             <p class="text-darkGrayishBlue">SmartHire provides employers with insights into candidate data, including skills, experience, and job preferences. This helps employers to better understand their hiring pool and make more informed decisions when selecting candidates for interviews and job offers.</p>
           </div>
         </div>
@@ -55,7 +54,7 @@
         <div class="md-flex-row flex flex-col space-y-3 md:space-x-6 md:space-y-0">
           <!-- Heading -->
           <div class="rounded-l-full bg-blue-200 md:bg-transparent">
-            <div class="flex items-center space-x-2">
+            <div class="items-center space-x-2 inline-flex">
               <div class="rounded-full bg-blue-500 px-4 py-2 text-white md:py-1">3</div>
               <h3 class="text-base font-bold md:mb-4 md:hidden">Streamlined Application Process</h3>
             </div>
@@ -70,4 +69,5 @@
       </div>
     </div>
   </section>
+  {% include 'mainPagefooter.html' %}
   {% endblock %}

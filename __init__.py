@@ -29,12 +29,23 @@ def create_app():
     from models import User,AdminUser,Employer
     @login_manager.user_loader
     def load_user(user_id):
-        user_type = User.query.get(int(user_id))
-        if user_type is None:
-            return AdminUser.query.get(int(user_id))
-        if user_type is None:
-            return Employer.query.get(int(user_id))
-        return user_type
+        # Check if the user is an AdminUser
+        admin_user = AdminUser.query.filter_by(id=user_id).first()
+        if admin_user:
+            return admin_user
+
+        # Check if the user is a Candidate
+        candidate = User.query.filter_by(id=user_id).first()
+        if candidate:
+            return candidate
+
+        # Check if the user is an Employer
+        employer = Employer.query.filter_by(id=user_id).first()
+        if employer:
+            return employer
+
+        # User not found
+        return None
 
     from adminpanel import adminpanel as adminpanel_blueprint
     app.register_blueprint(adminpanel_blueprint)

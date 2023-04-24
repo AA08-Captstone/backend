@@ -9,7 +9,7 @@ render_template,
 flash,
 )
 from flask_login import login_required, current_user
-from models import User
+from models import User,Job
 from __init__ import db, UPLOAD_FOLDER
 from werkzeug.utils import secure_filename
 from utils import allowed_file
@@ -56,3 +56,19 @@ def profile_setup():
 @login_required
 def candidate_home():
     return render_template('candidateHome.html', name=current_user.name)
+
+@candidate.route('/jobsearch') # profile page that return 'profile'
+@login_required
+def candidate_job_search():
+    job_list = Job.query.all()
+    return render_template('jobSearchTable.html', name=current_user.name,job_list=job_list)
+
+@candidate.route('/mapview') # profile page that return 'profile'
+@login_required
+def candidate_map():
+    return render_template('map.html')
+
+@candidate.route('/recommendation') # profile page that return 'profile'
+@login_required
+def candidate_recommendation():
+    return render_template('recommendation.html')

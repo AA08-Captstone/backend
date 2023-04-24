@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-</head>
+{% extends "base.html" %}
+{% block content %}
 
 <body>
 <section class="hero is-fullheight" style="background-color:#ffffff;">
@@ -17,18 +9,30 @@
             <h1 class="title">
                 Flask ADMIN
             </h1>
-            <h2 class="subtitle">
-                we are authenticated
-            </h2>
-            {% block content %}
-            <h1 class="title">
-                Welcome, {{ current_user.name }}!
-            </h1>
-            {% endblock %}
         </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
     </div>
+    <form method="post" action="/admin">
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <button
+        type="submit"
+        name="upload_jobs"
+        value="true"
+        class="block w-full rounded border border-blue-600 bg-blue-600 px-20 py-5 text-xl font-medium text-white hover:text-white hover:opacity-80 focus:outline-none focus:ring active:text-opacity-75 sm:w-auto">
+        upload jobs
+      </button>
+
+     </div>
+    </form>
     {% endif %}
 </section>
 </body>
 
 </html>
+{% endblock %}

@@ -40,7 +40,7 @@ def user_signup(): # define the sign up function
         user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
         if user: # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('auth.user_signup'))
+            return redirect(url_for('auth.user_login'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
         # add the new user to the database
@@ -78,7 +78,7 @@ def admin_login(): # define login page fucntion
 @auth.route('/EmployerLogin', methods=['GET', 'POST']) # define login page path
 def emp_login(): # define login page fucntion
     if request.method=='GET': # if the request is a GET we return the login page
-        return render_template('login.html')
+        return render_template('employerlogin.html')
     else: # if the request is POST the we check if the user exist and with te right password
         email = request.form.get('email')
         password = request.form.get('password')
@@ -91,15 +91,15 @@ def emp_login(): # define login page fucntion
             return redirect(url_for('auth.emp_signup'))
         elif not check_password_hash(user.password, password):
             flash('Please check your login details and try again.')
-            return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('auth.emp_login')) # if the user doesn't exist or password is wrong, reload the page
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('employer.employer_profile'))
 
 @auth.route('/EmployerSignup', methods=['GET', 'POST'])# we define the sign up path
 def emp_signup(): # define the sign up function
     if request.method=='GET': # If the request is GET we return the sign up page and forms
-        return render_template('signup.html')
+        return render_template('employerSignup.html')
     else: # if the request is POST, then we check if the email doesn't already exist and then we save data
         email = request.form.get('email')
         name = request.form.get('name')
@@ -107,13 +107,13 @@ def emp_signup(): # define the sign up function
         user = Employer.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
         if user: # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('auth.emp_login'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-        new_user = Employer(email=email, name=name, password=generate_password_hash(password, method='sha256')) #
+        new_user = Employer(email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.emp_login'))
     
 
 @auth.route('/logout') # define logout path

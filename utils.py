@@ -25,14 +25,20 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def upload_jobs():
+    print("Reading file")
     df = pd.read_csv("../output/linkedin-jobs.csv")
-
+    print("file read")
     for i in range(len(df)):
-        title= i[0]
-        company = i[1]
-        location = i[2]
-        link = i[3]
+        print("getting info")
+        title= df["Title"][i]
+        company = df["Company"][i]
+        location = df["Location"][i]
+        link = df["Apply"][i]
+        print("here")
         new_job = Job(title=title, company=company, location=location, link=link)
+        print("here")
         db.session.add(new_job)
+        print("here?")
         db.session.commit()
+        print("commited")
         

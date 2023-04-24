@@ -39,7 +39,7 @@ def about_page():
 
 @main.route('/OurTeam') # profile page that return 'profile'
 def our_team_page():
-    return render_template('about.html')
+    return render_template('ourTeam.html')
 
 @main.route('/portal/<string:method>',methods=['GET']) # profile page that return 'profile'
 def login_portal(method):

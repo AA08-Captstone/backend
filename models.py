@@ -29,7 +29,7 @@ class AdminUser(UserMixin, db.Model):
 
 class Job(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
-    company = db.Column(db.String(100), unique=True)
+    company = db.Column(db.String(100))
     location = db.Column(db.String(100))
     title = db.Column(db.String(1000))
-    link = db.Column(db.String(1000), unique=True)
+    link = db.Column(db.String(5000), unique=False)
