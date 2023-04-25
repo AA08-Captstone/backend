@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "TAILWINDDEV": "tailwindcss -i ./static/src/main.css -o ./static/dist/main.css --minify && python main.py"
+    "TAILWINDDEV": "tailwindcss -i ./static/src/main.css -o ./static/dist/main.css --minify && python main.py",
+    "tailwindgen": "tailwindcss -i ./static/src/main.css -o ./static/dist/main.css --minify"
   },
   "repository": {
     "type": "git",

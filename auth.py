@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, AdminUser, Employer
 from flask_login import login_user, logout_user, login_required, current_user
 from __init__ import db
-from utils import create_super_admin
+from utils import create_super_admin,generate_id
 
 
 auth = Blueprint('auth', __name__) # create a Blueprint object that we name 'auth'
@@ -42,7 +42,7 @@ def user_signup(): # define the sign up function
             flash('Email address already exists')
             return redirect(url_for('auth.user_login'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
+        new_user = User(id=generate_id(),email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
@@ -109,7 +109,7 @@ def emp_signup(): # define the sign up function
             flash('Email address already exists')
             return redirect(url_for('auth.emp_login'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-        new_user = Employer(email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
+        new_user = Employer(id=generate_id(), email=email, name=name, password=generate_password_hash(password, method='sha256'),profile_setup=False) #
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
