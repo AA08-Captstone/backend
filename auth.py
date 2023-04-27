@@ -80,7 +80,7 @@ def admin_login(): # define login page fucntion
 @auth.route('/EmployerLogin', methods=['GET', 'POST']) # define login page path
 def emp_login(): # define login page fucntion
     if request.method=='GET': # if the request is a GET we return the login page
-        return render_template('login.html')
+        return render_template('employerlogin.html')
     else: # if the request is POST the we check if the user exist and with te right password
         email = request.form.get('email')
         password = request.form.get('password')
@@ -101,7 +101,7 @@ def emp_login(): # define login page fucntion
 @auth.route('/EmployerSignup', methods=['GET', 'POST'])# we define the sign up path
 def emp_signup(): # define the sign up function
     if request.method=='GET': # If the request is GET we return the sign up page and forms
-        return render_template('signup.html')
+        return render_template('employersetup.html')
     else: # if the request is POST, then we check if the email doesn't already exist and then we save data
         email = request.form.get('email')
         name = request.form.get('name')
@@ -109,13 +109,13 @@ def emp_signup(): # define the sign up function
         user = Employer.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
         if user: # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('auth.emp_signup'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = Employer(email=email, name=name, password=generate_password_hash(password, method='sha256')) #
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.empLogin'))
     
 
 @auth.route('/logout') # define logout path

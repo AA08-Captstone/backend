@@ -24,5 +24,5 @@ def profile():
 
 @candidate.route('/profile_setup') # profile page that return 'profile'
 @login_required
-def profile():
+def profile_setup():
         return render_template('profileSetup.html', name=current_user.name)

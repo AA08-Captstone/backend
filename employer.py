@@ -9,7 +9,7 @@ render_template,
 flash,
 )
 from flask_login import login_required, current_user
-
+from models import User, Job
 
 employer = Blueprint('employer', __name__)
 
@@ -34,6 +34,12 @@ def employer_setup():
 def success():
     flash('Employer setup was successful!')
     return render_template('employersetup.html')
+
+@employer.route('/candidateSearch') # candidate search page
+@login_required
+def candidate_search();
+    user_list = User.query.all()
+    return render_template('candidateSearch.html', name = current_user.name, userss = user_list)
 
 # create a function to route to employer setup
 # if profile is not set up go to employersetup.html, if profile is set up go to employerprofile.html
