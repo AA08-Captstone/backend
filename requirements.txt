@@ -39,7 +39,7 @@ plac
 preshed
 pycparser
 pycryptodome
-pydanti
+pydantic
 PyPDF2
 pyresparser
 pyrsistent
