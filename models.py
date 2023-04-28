@@ -8,7 +8,12 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     profile_setup = db.Column(db.Boolean, default=False, nullable=False)
-    resume = db.Column(db.String(1000))
+    current_resume = db.Column(db.String(1000))
+    profile_pic = db.Column(db.String(1000))
+    resume_parsed = db.Column(db.Boolean, default=False, nullable=False)
+    #edu
+    #exp
+    #skills
     location = db.Column(db.String(1000))
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
@@ -32,4 +37,7 @@ class Job(UserMixin, db.Model):
     company = db.Column(db.String(100))
     location = db.Column(db.String(100))
     title = db.Column(db.String(1000))
+    #skill
     link = db.Column(db.String(5000), unique=False)
+
+

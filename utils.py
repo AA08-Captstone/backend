@@ -6,7 +6,7 @@ from __init__ import db
 import pandas as pd
 import random
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg'}
 
 def generate_id():   
     while True:
@@ -29,12 +29,11 @@ def create_super_admin():
                     password=generate_password_hash(password, method='sha256'))
         db.session.add(super_admin)
         db.session.commit()
-        
-
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def upload_jobs():
     print("Reading file")
@@ -54,3 +53,21 @@ def upload_jobs():
         db.session.commit()
         print("commited")
         
+import warnings
+warnings.filterwarnings('ignore')
+import en_core_web_sm
+nlp=en_core_web_sm.load()
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+from rake_nltk import Rake
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+from pyresparser import ResumeParser
+
+
+def parse_resume(resume):
+    df = ResumeParser(resume).get_extracted_data()
+    df1 = pd.DataFrame.from_dict(df, orient='index')
+    df1 = df1.transpose()
+    return df.items()
