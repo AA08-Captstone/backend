@@ -37,7 +37,7 @@ Pillow
 pkgutil_resolve_name
 plac
 preshed
-pycparse
+pycparser
 pycryptodome
 pydanti
 PyPDF2
