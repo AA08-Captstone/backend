@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'candidateHeader.html' %}
+
+  <head>
+    <title>Community Page</title>
+  </head>
+
+  
+  <body>
+    <div class="container mx-auto p-10">
+      <h2 class="md-text-left max-w-md text-left text-2xl font-bold">Welcome to the Community Page!</h2>
+      <p class="mb-5 py-4">Here, you can connect with other job seekers and employers, share job-related tips and advice, and stay up-to-date with the latest industry news and trends.</p>
+
+      <div class="mx-auto max-w-screen-2xl px-4 py-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:h-screen lg:grid-cols-2">
+      <div class="relative z-10 lg:py-16">
+        <div class="relative h-64 sm:h-80 lg:h-full">
+          <img
+            alt="House"
+            src="https://media.istockphoto.com/id/1063188150/vector/two-businessman-shaking-hands-successful-business-deal-contract-job-interview.jpg?s=612x612&w=0&k=20&c=VkXZw5R1m71WLjkc849m3PxH2cLU0Yd5JGYi_IalO_0="
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
+      </div>
+
+<h2 class="md-text-left max-w-md text-left text-2xl font-bold py-4">Why use SmartHire?</h2>
+
+<p class="py-2 text-left font-normal"> SmartHire is a powerful job recommender system that leverages machine learning algorithms to match job seekers with relevant job postings. It offers a modern and intuitive user interface that ensures a seamless user experience. The system allows job seekers to create a profile and upload their resume, which is then parsed and analyzed to identify their skills and work experience. The system also includes a web scraper that can collect job postings from various job boards and career websites, making it easy for job seekers to find a wide range of opportunities in one place.
+
+SmartHire's machine learning algorithms analyze job seeker profiles and job descriptions to make highly accurate recommendations. The system's recommendation engine can learn from user feedback and continuously improve over time, resulting in increasingly accurate matches between job seekers and job postings. The system also includes a community page that allows job seekers to connect with other job seekers, share information and resources, and receive support and advice.
+
+SmartHire's backend is built using Python, Flask, and SQLite3, which provides a powerful and scalable infrastructure capable of handling complex data models and business logic. The system's frontend is designed using Tailwind CSS, HTML, and JavaScript, providing a modern and responsive user interface that works seamlessly across all devices. Overall, SmartHire offers a comprehensive solution for job seekers, employers, and recruiters, streamlining the hiring process and making it more efficient and effective for all parties involved.
+</p>
+
+      <div class="items-center py-4">
+        <button
+          type="submit"
+          class="rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white disabled:">
+          Coming soon!
+        </button>
+      </div>
+
+    </div>
+  </body>
+  {% include 'mainPagefooter.html' %}
+
+  {% endblock %}

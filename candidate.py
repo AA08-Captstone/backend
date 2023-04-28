@@ -10,9 +10,9 @@ flash,
 )
 from flask_login import login_required, current_user
 from models import User,Job
-from __init__ import db, UPLOAD_FOLDER
+from __init__ import db, UPLOAD_FOLDER, PROFILEPIC_FOLDER
 from werkzeug.utils import secure_filename
-from utils import allowed_file
+from utils import allowed_file , parse_resume
 import os
 
 
@@ -25,7 +25,12 @@ def profile():
     if not user.profile_setup:
         return redirect(url_for('candidate.profile_setup'))
     else:
-        return render_template('profile.html', name=current_user.name)
+        resume_content = ""
+        try:
+            resume_content = parse_resume(f"{UPLOAD_FOLDER}/{user.current_resume}")
+        except:
+            print("Resume not parsed")
+        return render_template('profile.html', name=current_user.name, resume_content=resume_content)
 
 
 @candidate.route('/profile_setup', methods=['POST','GET']) # profile page that return 'profile'
@@ -44,7 +49,15 @@ def profile_setup():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
-            user.resume = filename
+            user.current_resume = filename
+        except Exception:
+            print("")
+        try:
+            file = request.files['pfp']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(PROFILEPIC_FOLDER, filename))
+            user.profile_pic = filename
         except Exception:
             print("")
         db.session.commit()
@@ -72,3 +85,8 @@ def candidate_map():
 @login_required
 def candidate_recommendation():
     return render_template('recommendation.html')
+
+@candidate.route('/community') # profile page that return 'profile'
+@login_required
+def candidate_community():
+    return render_template('community.html')

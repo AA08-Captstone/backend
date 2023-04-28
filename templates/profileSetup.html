@@ -11,12 +11,16 @@
         <form class="mt-6 border-t border-gray-400 pt-4" method="POST" action="/profile_setup" enctype="multipart/form-data">
           <div class="-mx-3 mb-6 flex flex-wrap">
             <div class="/ mb-6 w-full px-3 md:w-full">
-              <h2 class="text-2l mb-4 text-center font-bold text-gray-900">Change Profile Image</h2>
-              <div class="relative m-auto mb-6 h-36 w-36 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
-                <svg class="h-44 w-36 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+              <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Change Profile Image</label>
+              <input class="mb-2 m-auto h-auto cursor-pointer rounded-lg border border-gray-900 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" value="/static/uploads/profilepics/{{current_user.profile_pic}}" id="pfp_input" name="pfp" type="file"/>
+              <div class="relative m-auto my-6 h-36 w-36 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
+                
+              
+                <img src="/static/uploads/profilepics/{{current_user.profile_pic}}" alt="Profile Picture" class="h-44 w-36">
               </div>
-              <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Current Resume</label>
-              <input class="mb-2 m-auto h-auto cursor-pointer rounded-lg border border-gray-900 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" id="file_input" name="file" type="file" />
+              
+              <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Current Resume - <span class="font-bold">{{current_user.current_resume}}</span></label>
+              <input class="mb-2 m-auto h-auto cursor-pointer rounded-lg border border-gray-900 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" placeholder="/static/uploads/resumes/{{current_user.current_resume}}" id="file_input" name="file" type="file" />
               <label class="text-2l mb-2 block font-bold tracking-wide text-gray-700" for="grid-text-1">Email Address</label>
               <input class="block w-full appearance-none rounded-md border border-gray-400 bg-white py-3 px-4 leading-tight text-gray-700 shadow-inner focus:border-gray-500 focus:outline-none" id="grid-text-1" type="text" placeholder="Enter email" value="{{ current_user.email }}" disabled />
             </div>
